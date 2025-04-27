@@ -1,0 +1,7 @@
+{
+  "name":"GitLabCI",
+  "type":"gitlab",
+  "buildName": "PIPELINE-GITLAB",
+  "buildUrl": "URL_DA_PIPELINE_NO_GITLAB_CI",
+  "reportName": "PIPELINE-GITLAB"
+}
