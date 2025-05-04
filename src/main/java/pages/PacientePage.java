@@ -1,30 +1,66 @@
 package pages;
 
-
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Screenshots;
 import com.codeborne.selenide.Selenide;
+import dto.PacienteDTO;
+import utils.ScreenshotHelper;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selectors.byXpath;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
+import static enums.Ambiente.HOM;
 
-public class LoginPage {
+public class PacientePage {
+    ScreenshotHelper screenshotHelper = new ScreenshotHelper();
 
-
-    public void login(String perfil,String senha ) {
-        clicarElementoPorId("username");
-        definirValorPorId("username",perfil);
-        clicarElementoPorId("password");
-        definirValorPorId("password",senha);
-        clicarElementoPorId("submit-button");
+    public void cadastroPacientePorPaciente(PacienteDTO pacienteDTO){
+        acessoPaciente();
+        cadastroPaciente(pacienteDTO);
 
     }
 
+    public void cadastroPacientePorAdmin(PacienteDTO pacienteDTO){
+        acessoPaciente();
+        cadastroPaciente(pacienteDTO);
+    }
 
+
+    private  void acessoPaciente(){
+        open(HOM+"/paciente");
+        screenshotHelper.takeScreenshot("Acesso a pagina de paciente");
+
+    }
+
+    private void cadastroPaciente(PacienteDTO pacienteDTO){
+        clicarElementoPorId("cadastroPaciente");
+        clicarElementoPorId("nomePaciente");
+        definirValorPorId("nomePaciente",pacienteDTO.getNomePaciente());
+        clicarElementoPorId("cpfPaciente");
+        definirValorPorId("cpfPaciente",pacienteDTO.getCpfPaciente());
+        clicarElementoPorId("telefone");
+        definirValorPorId("telefone",pacienteDTO.getTelefone());
+        clicarElementoPorId("emailPaciente");
+        definirValorPorId("emailPaciente",pacienteDTO.getEmail());
+        clicarElementoPorId("endereco");
+        definirValorPorId("endereco",pacienteDTO.getEndereco());
+        clicarElementoPorId("bairro");
+        definirValorPorId("bairro",pacienteDTO.getBairro());
+        clicarElementoPorId("numero");
+        definirValorPorId("numero",pacienteDTO.getNumero());
+        clicarElementoPorId("alergias");
+        definirValorPorId("alergias",pacienteDTO.getAlergias());
+        clicarElementoPorId("convenioPaciente");
+        definirValorPorId("convenioPaciente",pacienteDTO.getConvenio());
+        screenshotHelper.takeScreenshot("Preencimento dos dados");
+        clicarElementoPorId("buttonsalvar");
+        verificarElementoExistentePorId("Paciente salvo com sucessos",90);
+        screenshotHelper.takeScreenshot("Salvamento do paciente");
+
+
+    }
     private void clicarElementoPorXpath(String xpath) {
         $(byXpath(xpath)).click();
     }
@@ -85,4 +121,5 @@ public class LoginPage {
     private void esperar(int milliseconds) {
         sleep(milliseconds);
     }
+
 }

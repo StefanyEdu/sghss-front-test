@@ -1,28 +1,60 @@
 package pages;
 
-
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import dto.ProfissionalSaudeDTO;
+import utils.ScreenshotHelper;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selectors.byXpath;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 
-public class LoginPage {
+public class ProfissionalSaudePage {
+
+    ScreenshotHelper screenshotHelper = new ScreenshotHelper();
+
+    public  void cadastroProfissionalMedico(ProfissionalSaudeDTO profissionalSaudeDTO){
+            acessoProfissionalSaude();
+            cadastroMedico(profissionalSaudeDTO);
+    }
 
 
-    public void login(String perfil,String senha ) {
-        clicarElementoPorId("username");
-        definirValorPorId("username",perfil);
-        clicarElementoPorId("password");
-        definirValorPorId("password",senha);
-        clicarElementoPorId("submit-button");
+
+    private void acessoProfissionalSaude(){
+        open("/profissionalsaude");
+        screenshotHelper.takeScreenshot("Acesso ao cadastro profissional");
+    }
+
+    private void cadastroMedico(ProfissionalSaudeDTO profissionalSaudeDTO){
+        clicarElementoPorId("cadastrarProfissional");
+        clicarElementoPorId("nomeProfissional");
+        definirValorPorId("nomeProfissional",profissionalSaudeDTO.getNomeProfissional());
+        clicarElementoPorId("cpfCnpjProfissional");
+        definirValorPorId("cpfCnpjProfissional",profissionalSaudeDTO.getCpfCnpjProfissionalSaude());
+        clicarElementoPorId("especialidade");
+        definirValorPorId("especialidade",profissionalSaudeDTO.getEspecialidade());
+        clicarElementoPorId("crm");
+        definirValorPorId("crm",profissionalSaudeDTO.getCRM());
+        clicarElementoPorId("telefone");
+        definirValorPorId("telefone",profissionalSaudeDTO.getTelefone());
+        clicarElementoPorId("endereco");
+        definirValorPorId("endereco",profissionalSaudeDTO.getEndereco());
+        clicarElementoPorId("cidade");
+        definirValorPorId("cidade",profissionalSaudeDTO.getCidade());
+        clicarElementoPorId("email");
+        definirValorPorId("email",profissionalSaudeDTO.getEmail());
+        verificarElementoExistentePorId("Profissional Saude cadastrado",90);
 
     }
+
+
+
+
+
+
+
 
 
     private void clicarElementoPorXpath(String xpath) {

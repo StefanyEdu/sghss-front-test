@@ -4,14 +4,12 @@ package setup;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 
-import io.sicredi.tm4j.testng.TM4JTestNGListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
 import static com.codeborne.selenide.Selenide.*;
 
-@Listeners(TM4JTestNGListener.class)
 public class BaseTest {
 
     @BeforeClass
